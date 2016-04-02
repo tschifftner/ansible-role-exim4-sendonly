@@ -67,8 +67,9 @@ script:
   - ansible-lint tests/$SITE
 
   # Some simple tests
-  - grep 'localhost' /etc/hostname
-  - grep 'localhost' /etc/mailname
+  - exim -bV
+  - grep 'travis.local' /etc/hostname
+  - grep 'travis.local' /etc/mailname
   - grep 'root:' /etc/email-addresses
 
 after_failure:
