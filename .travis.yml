@@ -68,11 +68,11 @@ script:
 
   # Some simple tests
   - exim -bV
-  - grep 'travis.local' /etc/hostname
   - grep 'travis.local' /etc/mailname
   - grep 'root:' /etc/email-addresses
 
 after_failure:
+  - ansible-playbook -i tests/inventory tests/$SITE --connection=local --sudo
   - cat /etc/hostname
   - cat /etc/mailname
   - cat /etc/email-addresses

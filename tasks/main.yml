@@ -3,7 +3,7 @@
   apt:
     name: '{{ item }}'
     state: present
-  with_items: exim4_sendonly_apt_packages
+  with_items: '{{ exim4_sendonly_apt_packages }}'
 
 - name: Configure exim4
   notify: restart exim4
@@ -23,7 +23,7 @@
     dest: /etc/aliases
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
-  with_items: exim4_sendonly_email_aliases
+  with_items: '{{ exim4_sendonly_email_aliases }}'
   when: exim4_sendonly_email_aliases|length
 
 - name: Define email addresses
