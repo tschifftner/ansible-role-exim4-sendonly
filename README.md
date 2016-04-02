@@ -6,7 +6,7 @@ Installs exim4 (send only) and handles email addresses on Debian/Ubuntu linux se
 
 ## Requirements
 
-ansible 1.9+
+ansible 1.7+
 
 ## Dependencies
 
