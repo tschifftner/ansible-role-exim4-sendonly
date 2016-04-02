@@ -1,0 +1,84 @@
+---
+sudo: required
+dist: trusty
+
+language: python
+python: "2.7"
+
+env:
+  - SITE=test.yml ANSIBLE_VERSION=latest
+  - SITE=test.yml ANSIBLE_VERSION=2.0.1.0
+  - SITE=test.yml ANSIBLE_VERSION=2.0.0.2
+  - SITE=test.yml ANSIBLE_VERSION=2.0.0.1
+  - SITE=test.yml ANSIBLE_VERSION=2.0.0.0
+  - SITE=test.yml ANSIBLE_VERSION=1.9.4
+  - SITE=test.yml ANSIBLE_VERSION=1.9.3
+  - SITE=test.yml ANSIBLE_VERSION=1.9.2
+  - SITE=test.yml ANSIBLE_VERSION=1.9.1
+  - SITE=test.yml ANSIBLE_VERSION=1.9.0.1
+  - SITE=test.yml ANSIBLE_VERSION=1.8.4
+  - SITE=test.yml ANSIBLE_VERSION=1.8.3
+  - SITE=test.yml ANSIBLE_VERSION=1.8.2
+  - SITE=test.yml ANSIBLE_VERSION=1.8.1
+  - SITE=test.yml ANSIBLE_VERSION=1.8
+  - SITE=test.yml ANSIBLE_VERSION=1.7.2
+  - SITE=test.yml ANSIBLE_VERSION=1.7.1
+  - SITE=test.yml ANSIBLE_VERSION=1.7
+
+matrix:
+  allow_failures:
+    - env: SITE=test.yml ANSIBLE_VERSION=2.0.0.2
+    - env: SITE=test.yml ANSIBLE_VERSION=2.0.0.1
+    - env: SITE=test.yml ANSIBLE_VERSION=2.0.0.0
+
+branches:
+  only:
+    - master
+
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -y curl
+
+install:
+  # Install Ansible.
+  - if [ "$ANSIBLE_VERSION" = "latest" ]; then pip install --no-binary ansible ansible; else pip install --no-binary ansible ansible==$ANSIBLE_VERSION; fi
+
+  # Create ansible.cfg with correct roles_path
+  - printf '[defaults]\nroles_path=../' >ansible.cfg
+
+  # Install ansible-lint
+  - pip install ansible-lint
+
+script:
+  # Basic role syntax check
+  - ansible-playbook tests/test.yml -i tests/inventory --syntax-check
+
+  # Run the role/playbook with ansible-playbook.
+  - ansible-playbook -i tests/inventory tests/$SITE --connection=local --sudo
+
+  # Run the role/playbook again, checking to make sure it's idempotent.
+  - >
+    ansible-playbook -i tests/inventory tests/$SITE --connection=local --sudo
+    | grep -q 'changed=0.*failed=0'
+    && (echo 'Idempotence test: pass' && exit 0)
+    || (echo 'Idempotence test: fail' && exit 1)
+
+  # ansible-lint checks for best practice
+  - ansible-lint tests/$SITE
+
+  # Some simple tests
+  - grep 'localhost' /etc/hostname
+  - grep 'localhost' /etc/mailname
+  - grep 'root:' /etc/email-addresses
+
+after_failure:
+  - cat /etc/hostname
+  - cat /etc/mailname
+  - cat /etc/email-addresses
+  - cat /etc/exim4/update-exim4.conf.conf
+  - ansible --version
+  - ansible -i 127.0.0.1, -m setup all -c local
+
+notifications:
+  slack: ambimax:2MlPTX9bY9aPxCPhJGxHKIT6
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/

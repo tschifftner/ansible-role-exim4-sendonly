@@ -1,0 +1,13 @@
+/var/mail/* {
+    daily
+    missingok
+    rotate 8
+    size 5M
+    maxage 30
+    notifempty
+    compress
+    delaycompress
+    notifempty
+    create 0640 root root
+    sharedscripts
+}
