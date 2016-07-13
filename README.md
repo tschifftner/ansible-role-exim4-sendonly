@@ -6,7 +6,7 @@ Installs exim4 (send only) and handles email addresses on Debian/Ubuntu linux se
 
 ## Requirements
 
-ansible 1.7+
+None
 
 ## Dependencies
 
@@ -63,7 +63,8 @@ Also add AAAA Record for this IPv6 address!
 
 TXT Record for Domain
 ```
-v=spf1 a:{{ ansible_fqdn }} -all
+v=spf1 a mx -all
+v=spf1 a mx a:{{ ansible_fqdn }} -all
 ```
 
 ### Exim commands
@@ -99,12 +100,7 @@ echo "This is a testmail." | mail -s "Testmail" your@email.com
 
 Ansible          | Debian Jessie    | Ubuntu 14.04    | Ubuntu 12.04
 :--------------: | :--------------: | :-------------: | :-------------: 
-1.7              | Yes              | Yes             | Yes
-1.8              | Yes              | Yes             | Yes
-1.9              | Yes              | Yes             | Yes
-2.0.1*           | Yes              | Yes             | Yes
-
-*) 2.0.0.0, 2.0.0.1, 2.0.0.2 are not supported!
+2.1           | Yes              | Yes             | Yes
 
 ## License
 
@@ -112,4 +108,4 @@ MIT / BSD
 
 ## Author Information
 
- - Tobias Schifftner, @tschifftner
+ - [Tobias Schifftner](https://twitter.com/tschifftner), [ambimax® GmbH](https://www.ambimax.de)
