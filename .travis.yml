@@ -3,7 +3,9 @@ sudo: required
 dist: trusty
 
 language: python
-python: "3.6"
+python:
+  - 2.7
+  - 3.6
 
 env:
   - SITE=test.yml ANSIBLE_VERSION=latest
