@@ -1,3 +1,3 @@
-{% for user, email in exim4_sendonly_email_addresses.iteritems() %}
+{% for user, email in exim4_sendonly_email_addresses.items() %}
 {{ user }}: {{ email }}
 {% endfor %}
