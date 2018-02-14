@@ -1,4 +1,5 @@
 /var/mail/* {
+    su root mail
     daily
     missingok
     rotate 8
