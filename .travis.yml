@@ -9,10 +9,6 @@ env:
   - SITE=test.yml ANSIBLE_VERSION=latest
   - SITE=test.yml ANSIBLE_VERSION=2.1.0.0
 
-branches:
-  only:
-    - master
-
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -y curl
