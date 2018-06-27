@@ -20,7 +20,7 @@
     dest: /etc/exim4/conf.d/{{ item }}/aws_ses
     owner: root
     group: root
-    mode: 755
+    mode: '0755'
   with_items:
     - auth
     - router
