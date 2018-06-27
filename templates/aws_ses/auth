@@ -1,0 +1,4 @@
+ses_login:
+  driver = plaintext
+  public_name = LOGIN
+  client_send = : {{ exim4_aws_access_key_id }} : {{ exim4_aws_secret_access_key }}

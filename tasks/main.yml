@@ -46,6 +46,10 @@
     dest: '/etc/exim4/exim4.conf.localmacros'
   when: exim4_sendonly_enable_tls
 
+- name: Setup aws ses
+  include: aws_ses.yml
+  when: exim4_aws_access_key_id != '' and exim4_aws_secret_access_key != ''
+
 - name: 'Set logrotate for local user mails in /var/mail'
   copy:
     src: 'logrotate'
