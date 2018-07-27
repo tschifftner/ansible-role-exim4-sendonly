@@ -1,0 +1,31 @@
+
+# Started, but there was no mail send via ses
+
+- name: Ensure conf.d folder exists
+  file:
+    path: /etc/exim4/conf.d
+    state: directory
+    owner: root
+    group: root
+
+- name: Remove example auth file
+  file:
+    path: /etc/exim4/conf.d/auth/30_exim4-config_examples
+    state: absent
+
+- name: Add config files
+  notify: restart exim4
+  template:
+    src: 'aws_ses/{{ item }}'
+    dest: /etc/exim4/conf.d/{{ item }}/aws_ses
+    owner: root
+    group: root
+    mode: '0755'
+  with_items:
+    - auth
+    - router
+    - transport
+
+- name: Update exim4 conf
+  command: /usr/sbin/update-exim4.conf -o /etc/exim4/exim4.conf
+  changed_when: false

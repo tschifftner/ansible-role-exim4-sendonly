@@ -1,6 +1,11 @@
 ---
 exim4_sendonly_fqdn: '{{ ansible_fqdn }}'
 
+exim4_aws_access_key_id: ''
+exim4_aws_secret_access_key: ''
+
+exim4_aws_ses_region: 'eu-west-1'
+
 exim4_sendonly_enable_tls: true
 exim4_sendonly_smarthost: ''
 exim4_sendonly_username: ''

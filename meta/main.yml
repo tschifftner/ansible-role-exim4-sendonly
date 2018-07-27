@@ -6,14 +6,17 @@ galaxy_info:
   description: Installs exim4 (sendonly) on Debian/Ubuntu linux servers.
   company: ambimax® GmbH
   license: MIT
-  min_ansible_version: 2.2
+  role_name: exim4_sendonly
+  min_ansible_version: 2.5
   platforms:
   - name: Debian
     versions:
     - jessie
+    - stretch
   - name: Ubuntu
     versions:
-    - trusty
+    - xenial
+    - bionic
   galaxy_tags:
     - debian
     - ubuntu

@@ -1,0 +1,5 @@
+send_via_ses:
+  driver = manualroute
+  domains = ! +local_domains
+  transport = ses_smtp
+  route_list = * email-smtp.{{ exim4_aws_ses_region }}.amazonaws.com;
