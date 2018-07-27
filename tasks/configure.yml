@@ -1,0 +1,50 @@
+---
+
+- name: Configure exim4
+  notify: restart exim4
+  template:
+    src: 'update-exim4.conf.conf'
+    dest: /etc/exim4/update-exim4.conf.conf
+
+- name: Update mailname
+  notify: restart exim4
+  copy:
+    content: '{{ exim4_sendonly_fqdn }}'
+    dest: '/etc/mailname'
+
+- name: Define email aliases
+  notify: restart exim4
+  lineinfile:
+    dest: /etc/aliases
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items: '{{ exim4_sendonly_email_aliases }}'
+  when: exim4_sendonly_email_aliases|length
+
+- name: Define email addresses
+  notify: restart exim4
+  template:
+    src: 'email-addresses.j2'
+    dest: '/etc/email-addresses'
+  when: exim4_sendonly_email_addresses|length
+
+- name: Set auth for relay host
+  notify: restart exim4
+  template:
+    src: 'passwd.client'
+    dest: '/etc/exim4/passwd.client'
+
+- name: Enable TLS
+  notify: restart exim4
+  template:
+    src: 'exim4.conf.localmacros'
+    dest: '/etc/exim4/exim4.conf.localmacros'
+  when: exim4_sendonly_enable_tls
+
+- name: 'Set logrotate for local user mails in /var/mail'
+  copy:
+    src: 'logrotate'
+    dest: /etc/logrotate.d/local_user_mails
+    owner: root
+    group: root
+    mode: '0644'
