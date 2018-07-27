@@ -1,6 +1,6 @@
 # Ansible Role: exim4 (send only)
 
-[![Build Status](https://travis-ci.org/tschifftner/ansible-role-exim4-sendonly.svg)](https://travis-ci.org/tschifftner/ansible-role-exim4-sendonly)
+[![Build Status](https://travis-ci.org/tschifftner/ansible-role-exim4-sendonly.svg?branch=master)](https://travis-ci.org/tschifftner/ansible-role-exim4-sendonly)
 
 Installs exim4 (send only) and handles email addresses on Debian/Ubuntu linux servers.
 
@@ -98,9 +98,14 @@ echo "This is a testmail." | mail -s "Testmail" your@email.com
 
 ## Supported OS
 
-Ansible          | Debian Jessie    | Ubuntu 14.04    | Ubuntu 12.04
-:--------------: | :--------------: | :-------------: | :-------------: 
-2.1           | Yes              | Yes             | Yes
+ - Debian 9 (Stretch)
+ - Debian 8 (Jessie)
+ - Ubuntu 18.04 (Bionic Beaver)
+ - Ubuntu 16.04 (Xenial Xerus)
+ 
+## Required ansible version
+
+Ansible 2.5+
 
 ## License
 
