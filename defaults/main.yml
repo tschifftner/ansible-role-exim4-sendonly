@@ -1,6 +1,5 @@
 ---
 exim4_sendonly_fqdn: '{{ ansible_fqdn }}'
-exim4_sendonly_hostname: '{{ ansible_hostname }}'
 
 exim4_aws_access_key_id: ''
 exim4_aws_secret_access_key: ''
