@@ -9,4 +9,4 @@
       root: 'root@travis.local'
 
   roles:
-    - ansible-role-exim4-sendonly
+    - role_under_test
