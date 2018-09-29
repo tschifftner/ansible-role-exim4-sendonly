@@ -32,7 +32,7 @@ The playbook could look like:
     - hosts: webservers
 
       roles:
-         - { role: tschifftner.exim4-sendonly }
+         - { role: tschifftner.exim4_sendonly }
 
 ## Use Smart Proxy
 
