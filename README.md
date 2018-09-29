@@ -15,7 +15,7 @@ None.
 ## Installation
 
 ```
-$ ansible-galaxy install tschifftner.exim4-sendonly
+$ ansible-galaxy install tschifftner.exim4_sendonly
 ```
 
 ## Example Playbook
