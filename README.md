@@ -15,7 +15,7 @@ None.
 ## Installation
 
 ```
-$ ansible-galaxy install tschifftner.exim4-sendonly
+$ ansible-galaxy install tschifftner.exim4_sendonly
 ```
 
 ## Example Playbook
@@ -32,7 +32,7 @@ The playbook could look like:
     - hosts: webservers
 
       roles:
-         - { role: tschifftner.exim4-sendonly }
+         - { role: tschifftner.exim4_sendonly }
 
 ## Use Smart Proxy
 
