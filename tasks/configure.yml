@@ -39,7 +39,7 @@
   template:
     src: 'exim4.conf.localmacros'
     dest: '/etc/exim4/exim4.conf.localmacros'
-  when: exim4_sendonly_enable_tls
+  when: exim4_sendonly_enable_tls|bool
 
 - name: 'Set logrotate for local user mails in /var/mail'
   copy:
